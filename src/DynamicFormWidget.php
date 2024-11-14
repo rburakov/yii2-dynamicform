@@ -231,7 +231,7 @@ class DynamicFormWidget extends \yii\base\Widget
     {
         $content = ob_get_clean();
         $crawler = new Crawler();
-        $crawler->addHTMLContent($content, \Yii::$app->charset);
+        $crawler->addHTMLContent(mb_convert_encoding($content, 'ISO-8859-1', \Yii::$app->charset));
         $results = $crawler->filter($this->widgetItem);
         $document = new \DOMDocument('1.0', \Yii::$app->charset);
         $document->appendChild($document->importNode($results->first()->getNode(0), true));
@@ -263,7 +263,7 @@ class DynamicFormWidget extends \yii\base\Widget
     {
         $document = new \DOMDocument('1.0', \Yii::$app->charset);
         $crawler = new Crawler();
-        $crawler->addHTMLContent($content, \Yii::$app->charset);
+        $crawler->addHTMLContent(mb_convert_encoding($content, 'ISO-8859-1', \Yii::$app->charset));
         $root = $document->appendChild($document->createElement('_root'));
         $crawler->rewind();
         $root->appendChild($document->importNode($crawler->current(), true));
